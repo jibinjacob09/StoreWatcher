@@ -1,6 +1,6 @@
 StoreWatcher
 
-Storewatcher is a dockerized python program that checks for a price drop of a desired item in all the specified online stores. 
+Storewatcher is a dockerized (using arm version of alpine linux) python program that checks for a price drop of a desired item in all the specified online stores. 
 
 I am currently using this program to be alerted of any  price drops for the computer parts I want to purchase
 
@@ -16,7 +16,6 @@ SETUP:
 ** Currently the container is not set to run the program automatically, but that update will be coming soon
 ** run the docker images with options -it 
 ** and run the python file located at  
-		/home/store_watcher/store-watch.py
 
 
 FUTURE UPGRADES
