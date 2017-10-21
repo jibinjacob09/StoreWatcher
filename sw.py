@@ -46,18 +46,20 @@ class StoreItems:
             self.stores[key] = (Store(key, value))
 
     def get_sale_prices(self):
-        sale_info = list()
+        sale_lst = list()
         for store in self.stores.values():
             curr_price = self.base_price
             if "NewEgg" == store.name:
-                #curr_price = store.get_sale_price_in_newegg()
-                pass
+                curr_price = store.get_sale_price_in_newegg()
             elif "CanadaComps" == store.name:
                 curr_price = store.get_sale_price_in_canadacomps()
 
             if self._is_on_sale(curr_price):
-                sale_info.append("{0} on sale @ {1}, ${2} instead of ${3}".format(self.name, store.name, curr_price,
-                                                                                  self.base_price))
+                sale_lst.append("{0}: ${1}".format(store.name, curr_price))
+        if len(sale_lst) > 0:
+            sale_info = ("{0}  baseprice=${1}".format(self.name, self.base_price), sale_lst)
+        else:
+            sale_info = ""
         return sale_info
 
     def _is_on_sale(self, price):
