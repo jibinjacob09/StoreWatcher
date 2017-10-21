@@ -9,7 +9,7 @@ I am currently using this program to be alerted of any  price drops for the comp
 1. Must have docker installed
 2. Install the custom arm32alpine image from the tar file, using
 ```bash
-$ docker load < arm32alpine_storewatcher:v2.tar 
+$ docker load < arm32alpine_storewatcher_v2.tar 
 ```
 
 ### Steps
