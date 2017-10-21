@@ -26,14 +26,21 @@ class Store:
         start_pos = bs.get_text().find("product_sale_price")
         pos1 = bs.get_text().find("[", start_pos) + len("[")
         pos2 = bs.get_text().find("]", pos1)
-
         sale_price = bs.get_text()[pos1:pos2]
-        return float(sale_price.strip("'"))
+        try:
+            sale_price = float(sale_price.strip("'"))
+        except ValueError:
+            sale_price = "error"
+        return sale_price
 
     def get_sale_price_in_canadacomps(self):
         bs = BeautifulSoup(self.get_store_page_html(), "html.parser")
         sale_price = bs.find("p", attrs={"itemprop": "price"}).next
-        return float(sale_price.replace("$", "").strip())
+        try:
+            sale_price = float(sale_price.replace("$", "").strip())
+        except ValueError:
+            sale_price = "error"
+        return sale_price
 
 class StoreItems:
 
@@ -54,12 +61,12 @@ class StoreItems:
             elif "CanadaComps" == store.name:
                 curr_price = store.get_sale_price_in_canadacomps()
 
-            if self._is_on_sale(curr_price):
+            if curr_price == "error" or self._is_on_sale(curr_price):
                 sale_lst.append("{0}: ${1}".format(store.name, curr_price))
         if len(sale_lst) > 0:
             sale_info = ("{0}  baseprice=${1}".format(self.name, self.base_price), sale_lst)
         else:
-            sale_info = ""
+            sale_info = None
         return sale_info
 
     def _is_on_sale(self, price):

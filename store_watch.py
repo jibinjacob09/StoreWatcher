@@ -22,4 +22,6 @@ computer_parts["psu"] = StoreItems("Seasonic G series", 94.00,
                  )
 
 for parts in computer_parts.keys():
-    print(computer_parts[parts].get_sale_prices())
+    sale_info = computer_parts[parts].get_sale_prices()
+    if sale_info is not None:
+        print(sale_info)
